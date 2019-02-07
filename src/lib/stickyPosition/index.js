@@ -102,6 +102,12 @@ export default (ReactTable) => {
     }
 
     getColumnsWithFixed(columns, parentIsfixed, parentIsLastFixed, parentIsFirstFixed) {
+      const {
+        customFixedLeftClassName,
+        customFixedRightClassName,
+        customLastLeftFixedClassName,
+        customLastRightFixedClassName
+      } = this.props;
       return columns.map((column, index) => {
         const fixed = column.fixed || parentIsfixed || false;
 
@@ -132,9 +138,13 @@ export default (ReactTable) => {
             column.className,
             fixed && fixedClassName,
             columnIsLeftFixed && fixedLeftClassName,
+            columnIsLeftFixed && customFixedLeftClassName,
             columnIsRightFixed && fixedRightClassName,
+            columnIsRightFixed && customFixedRightClassName,
             isLastFixed && lastLeftFixedClassName,
+            isLastFixed && customLastLeftFixedClassName,
             isFirstFixed && lastRightFixedClassName,
+            isFirstFixed && customLastRightFixedClassName,
           ),
           style: {
             ...column.style,
