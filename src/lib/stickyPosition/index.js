@@ -163,9 +163,13 @@ export default (ReactTable) => {
             column.headerClassName,
             fixed && fixedClassName,
             columnIsLeftFixed && fixedLeftClassName,
+            columnIsLeftFixed && customFixedLeftClassName,
             columnIsRightFixed && fixedRightClassName,
+            columnIsRightFixed && customFixedRightClassName,
             (_parentIsLastFixed || (parentIsLastFixed && isLastFixed)) && lastLeftFixedClassName,
+            (_parentIsLastFixed || (parentIsLastFixed && isLastFixed)) && customLastLeftFixedClassName,
             (_parentIsFirstFixed || (parentIsFirstFixed && isFirstFixed)) && lastRightFixedClassName,
+            (_parentIsFirstFixed || (parentIsFirstFixed && isFirstFixed)) && customLastRightFixedClassName,
           ),
           headerStyle: {
             ...column.headerStyle,
