@@ -25,6 +25,10 @@ export default (ReactTable) => {
       onResizedChange: PropTypes.func,
       stripedColor: PropTypes.string,
       highlightColor: PropTypes.string,
+      customFixedLeftClassName: PropTypes.string,
+      customFixedRightClassName: PropTypes.string,
+      customLastLeftFixedClassName: PropTypes.string,
+      customLastRightFixedClassName: PropTypes.string,
     }
 
     static defaultProps = {
@@ -33,6 +37,10 @@ export default (ReactTable) => {
       onResizedChange: null,
       stripedColor: null,
       highlightColor: null,
+      customFixedLeftClassName: null,
+      customFixedRightClassName: null,
+      customLastLeftFixedClassName: null,
+      customLastRightFixedClassName: null
     }
 
     constructor(props) {
@@ -106,7 +114,7 @@ export default (ReactTable) => {
         customFixedLeftClassName,
         customFixedRightClassName,
         customLastLeftFixedClassName,
-        customLastRightFixedClassName
+        customLastRightFixedClassName,
       } = this.props;
       return columns.map((column, index) => {
         const fixed = column.fixed || parentIsfixed || false;
