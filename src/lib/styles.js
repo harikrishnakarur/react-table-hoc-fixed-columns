@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-export const border = 'solid 1px #ccc !important';
+export const border = 'solid 1px #ccc';
 
 export const lastLeftFixedClassName = css`
   border-right: ${border};
