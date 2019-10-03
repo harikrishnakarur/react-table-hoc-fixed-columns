@@ -1,20 +1,22 @@
 
-ReactTable HOC fixed columns - v2 beta
+ReactTable HOC fixed columns
 ---
 [![npm version](https://img.shields.io/npm/v/react-table-hoc-fixed-columns.svg?style=flat-square)](https://www.npmjs.com/package/react-table-hoc-fixed-columns)
 [![npm downloads](https://img.shields.io/npm/dm/react-table-hoc-fixed-columns.svg?style=flat-square)](https://www.npmjs.com/package/react-table-hoc-fixed-columns)
 
-Higher Order Components for [ReactTable](https://react-table.js.org). It make possible to fixed one or more columns on the left and/or on the right. It use `position: sticky` for recent browsers, and [fallback for legacy browser](#legacy-browsers).
+Higher Order Components for [ReactTable v6](https://github.com/tannerlinsley/react-table/tree/v6). It make possible to fixed one or more columns on the left and/or on the right. It use `position: sticky` for recent browsers, and [fallback for legacy browser](#legacy-browsers).
 
 # Documentation
 
-* [Demo v2 on CodeSandbox](https://codesandbox.io/s/kowzlm5jp7)
+* [Demo on CodeSandbox](https://codesandbox.io/s/kowzlm5jp7)
 * [Install](#install)
 * [Simple example](#simple-example)
 * [Props](#props)
 * [Legacy browsers](#legacy-browsers)
 * [Contribute](#contribute)
 
+## Version 1
+Documentation of previous v1 [here](https://github.com/GuillaumeJasmin/react-table-hoc-fixed-columns/tree/v1)
 
 ## Features
 * fix columns on the left and / or on the right side
@@ -165,10 +167,12 @@ v2 contain styles improvement. CSS-in-JS was removed, in order to let a full ove
 
 * inlude css file
   ```jsx
-    import 'react-table-hoc-fixed-columns/lib/styles.css'
+    import "react-table/react-table.css";
+    ...
+    import 'react-table-hoc-fixed-columns/lib/styles.css';
   ```
 * `stripedColor` and `highlightColor` props was remove. You can now override it with pure css.
-* See the [CSS file](https://github.com/GuillaumeJasmin/react-table-hoc-fixed-columns/blob/v2/src/lib/styles.css) if you want to override style
+* See the [CSS file](https://github.com/GuillaumeJasmin/react-table-hoc-fixed-columns/blob/master/src/lib/styles.css) if you want to override style
 
 ## Contribute
 

@@ -8,15 +8,17 @@ export default (ReactTable) => {
   class ReactTableFixedColumns extends React.Component {
     static propTypes = {
       columns: PropTypes.array.isRequired,
-      innerRef: PropTypes.func,
+      innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
       className: PropTypes.string,
       onResizedChange: PropTypes.func,
+      uniqClassName: PropTypes.string,
     }
 
     static defaultProps = {
       innerRef: null,
       className: null,
       onResizedChange: null,
+      uniqClassName: null,
     }
 
     constructor(props) {
@@ -25,14 +27,24 @@ export default (ReactTable) => {
       checkErrors(this.props.columns);
 
       this.columnsWidth = {};
-      this.uniqClassName = uniqid('rthfc-');
+      this.uniqClassName = this.props.uniqClassName || uniqid('rthfc-');
     }
 
     componentDidMount() {
+      this.updateRowsPosition();
+    }
+
+    componentDidUpdate() {
+      this.updateRowsPosition();
+    }
+
+    updateRowsPosition() {
       const headerRows = document.querySelectorAll(`.${this.uniqClassName} .rt-thead`);
+      let topPosition = 0;
       /* eslint-disable no-param-reassign */
       Array.from(headerRows).forEach((row) => {
-        row.style.top = `${row.offsetTop}px`;
+        row.style.top = `${topPosition}px`;
+        topPosition += row.offsetHeight;
       });
       /* eslint-enable no-param-reassign */
     }
@@ -102,7 +114,7 @@ export default (ReactTable) => {
         const left = columnIsLeftFixed && this.getLeftOffsetColumns(columns, index);
         const right = columnIsRightFixed && this.getRightOffsetColumns(columns, index);
 
-        return {
+        const output = {
           ...column,
           fixed,
           className: cx(
@@ -131,8 +143,13 @@ export default (ReactTable) => {
             left,
             right,
           },
-          columns: column.columns && this.getColumnsWithFixed(column.columns, fixed, _parentIsLastFixed, _parentIsFirstFixed),
         };
+
+        if (column.columns) {
+          output.columns = this.getColumnsWithFixed(column.columns, fixed, _parentIsLastFixed, _parentIsFirstFixed);
+        }
+
+        return output;
       });
     }
 

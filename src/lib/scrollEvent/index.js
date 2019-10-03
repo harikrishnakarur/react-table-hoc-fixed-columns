@@ -9,22 +9,24 @@ export default (ReactTable) => {
     static propTypes = {
       columns: PropTypes.array.isRequired,
       getProps: PropTypes.func,
-      innerRef: PropTypes.func,
+      innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
       className: PropTypes.string,
+      uniqClassName: PropTypes.string,
     }
 
     static defaultProps = {
       getProps: null,
       innerRef: null,
       className: null,
+      uniqClassName: null,
     }
 
     constructor(props) {
       super(props);
-      
+
       checkErrors(this.props.columns);
 
-      this.uniqClassName = uniqid('rthfc-');
+      this.uniqClassName = this.props.uniqClassName || uniqid('rthfc-');
 
       this.onChangePropertyList = {
         onResizedChange: this.onChangeProperty('onResizedChange'),
@@ -47,7 +49,7 @@ export default (ReactTable) => {
     }
 
     onScrollX = (event) => {
-      if (event.nativeEvent.target.getAttribute('class') !== 'rt-table') return;
+      if (event.nativeEvent.target.getAttribute('class').indexOf('rt-table') === -1) return;
       this.calculatePos(event.nativeEvent.target);
     }
 
@@ -95,7 +97,7 @@ export default (ReactTable) => {
         (!parentIsfixed && prevColumn && !prevColumn.fixed)
       );
 
-      return {
+      const output = {
         ...column,
         fixed,
         className: cx(
@@ -114,8 +116,13 @@ export default (ReactTable) => {
           (_parentIsLastFixed || (parentIsLastFixed && isLastFixed)) && 'rthfc-th-fixed-left-last',
           (_parentIsFirstFixed || (parentIsFirstFixed && isFirstFixed)) && 'rthfc-th-fixed-right-first',
         ),
-        columns: column.columns && this.getColumnsWithFixed(column.columns, fixed, _parentIsLastFixed, _parentIsFirstFixed),
       };
+
+      if (column.columns) {
+        output.columns = this.getColumnsWithFixed(column.columns, fixed, _parentIsLastFixed, _parentIsFirstFixed);
+      }
+
+      return output;
     });
 
     getColumns() {
